@@ -88,17 +88,17 @@ Bu projede yapılanlar;
         Önce LabelMe programından;
         1- Train ve test olarak dosyalara ayırdığımız resimlerimizi etiketliyoruz.
         
-        ![Etiketlediğimiz dosyaları kayıt ediyoruz.](Detectron2%20f1827ec0db9346cc838713c5f1dae4e0/Untitled.png)
+        ![Etiketlediğimiz dosyaları kayıt ediyoruz.](readme_images/Untitled.png)
         
         Etiketlediğimiz dosyaları kayıt ediyoruz.
         
-        ![train’de etiketlenen resimlerimiz ve örnek json dosyası](Detectron2%20f1827ec0db9346cc838713c5f1dae4e0/1.png)
+        ![train’de etiketlenen resimlerimiz ve örnek json dosyası](readme_images/1.png)
         
         train’de etiketlenen resimlerimiz ve örnek json dosyası
         
         2-labelme2coco.py dosyasını çalıştırıp, her resim için ayrı olan json(etiket) dosyalarını train ve test olmak üzere birleştiriyoruz.
         
-        ![train.json ve test.json ](Detectron2%20f1827ec0db9346cc838713c5f1dae4e0/Untitled%201.png)
+        ![train.json ve test.json ](readme_images/Untitled%201.png)
         
         train.json ve test.json 
         
@@ -110,7 +110,7 @@ Bu projede yapılanlar;
 “train ve test” adında resim klasorumuz ve json dosyalarımız var.
 train.py, test.py, util.py adında 3 adet py dosyası oluşturuyoruz.
 
-![Untitled](Detectron2%20f1827ec0db9346cc838713c5f1dae4e0/Untitled%202.png)
+![Untitled](readme_images/Untitled%202.png)
 
 - **İlk Projenin Kodlanması**
     
@@ -141,7 +141,7 @@ train.py, test.py, util.py adında 3 adet py dosyası oluşturuyoruz.
                     plt.show()
             ```
             
-            ![Untitled](Detectron2%20f1827ec0db9346cc838713c5f1dae4e0/Untitled%203.png)
+            ![Untitled](readme_images/Untitled%203.png)
             
             →Resimde daha önce bizim etiketlediğimiz resim var. **Yani çalışıyor** !
             
@@ -278,13 +278,13 @@ train.py, test.py, util.py adında 3 adet py dosyası oluşturuyoruz.
         
         Bu fonksiyonumuzun sonucu;
         
-        ![Cat ve %99 uygunluk buldu!](Detectron2%20f1827ec0db9346cc838713c5f1dae4e0/Untitled%204.png)
+        ![Cat ve %99 uygunluk buldu!](readme_images/Untitled%204.png)
         
         Cat ve %99 uygunluk buldu!
         
         Fakat yaptığımız model farklı resimlerde nasıl sonuç verecek diye kontrol yapmamız lazım; 
         
-        ![Untitled](Detectron2%20f1827ec0db9346cc838713c5f1dae4e0/Untitled%205.png)
+        ![Untitled](readme_images/Untitled%205.png)
         
         Resimde etiketlediğimizden farklı olarak insan ve köpek var ama biz bunları etiketlememiştik ve yine de bu objeleri bulup “cat” olarak etiketledi.
         
@@ -353,19 +353,19 @@ train.py, test.py, util.py adında 3 adet py dosyası oluşturuyoruz.
         
         Balonları algılıyor ve insanı algılamıyor.
         
-        ![Untitled](Detectron2%20f1827ec0db9346cc838713c5f1dae4e0/Untitled%206.png)
+        ![Untitled](readme_images/Untitled%206.png)
         
     - Kodumuz yanlış çalışıyor mu diye kontrol edilen kedi resmi;
         
         Balon dışında objeyi bulmadı. Hatasız çalışıyor.
         
-        ![Untitled](Detectron2%20f1827ec0db9346cc838713c5f1dae4e0/Untitled%207.png)
+        ![Untitled](readme_images/Untitled%207.png)
         
     - Daha önce modelin hiç görmediği bir fotoğraf;
         
         Balon dışında objeyi bulmadı. Hatasız çalışıyor.
         
-        ![Untitled](Detectron2%20f1827ec0db9346cc838713c5f1dae4e0/Untitled%208.png)
+        ![Untitled](readme_images/Untitled%208.png)
         
     - İlk modelimizin yanlış çalıştığını farkettiğimiz test fotoğrafımız;
         
@@ -373,7 +373,7 @@ train.py, test.py, util.py adında 3 adet py dosyası oluşturuyoruz.
         İnsanın kolunun  yakınlarında balon objesi buldu ama orada balon yoktu.
         Yine de modelimiz balon dışındaki objeler için çalışmadı ve istediğimiz buydu!
         
-        ![Untitled](Detectron2%20f1827ec0db9346cc838713c5f1dae4e0/Untitled%209.png)
+        ![Untitled](readme_images/Untitled%209.png)
         
     
 
