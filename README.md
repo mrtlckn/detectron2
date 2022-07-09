@@ -4,9 +4,9 @@ Bu projede yapılanlar;
 
 <aside>
 📖 Bu projede yapılanlar;
-1- detectron2 ve LabelMe kurulumu
-2-LabelMe programında etiketlenen resimlerle modelimizin kurulması yani ilk projemiz
-3-İlk projemizde ortaya çıkan sorun ve ikinci bir projede bu sorunun çözümünün gösterilmesi
+<br>1- detectron2 ve LabelMe kurulumu</br>
+<br>2-LabelMe programında etiketlenen resimlerle modelimizin kurulması yani ilk projemiz</br>
+<br>3-İlk projemizde ortaya çıkan sorun ve ikinci bir projede bu sorunun çözümünün gösterilmesi</br>
 
 </aside>
 
