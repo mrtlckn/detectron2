@@ -23,7 +23,8 @@ from detectron2.utils.visualizer import ColorMode
 import random
 import cv2
 import matplotlib.pyplot as plt
-from zmq import device
+#from zmq import device
+
 
 #function about our annotatins are correctly registered with detectron2
 #What function do;
@@ -78,50 +79,39 @@ def on_image(image_path,predictor):
     v = Visualizer(im[:,:,::-1], metadata=dataset_custom_metadata,scale = 0.5,instance_mode=ColorMode.SEGMENTATION)#dataset_custom_metadata
     v = v.draw_instance_predictions(outputs["instances"].to("cpu"))
     #print("Outputs:", outputs) #outputs["instances"] ile aynı 
-    print("All informations:",outputs["instances"])
-    print("Object 1:",outputs["instances"].pred_boxes[0][0])
-    print("Object 1, x:",outputs["instances"].pred_boxes[0][0].tensor.cpu().numpy()[0][0])
-    print("Object 1, y:",outputs["instances"].pred_boxes[0][0].tensor.cpu().numpy()[0][1])
-    print("Object 1, w:",outputs["instances"].pred_boxes[0][0].tensor.cpu().numpy()[0][2])
-    print("Object 1, h:",outputs["instances"].pred_boxes[0][0].tensor.cpu().numpy()[0][3])
+    #print("All informations:",outputs["instances"])
+    o = outputs["instances"]
 
     #Sonradan yapılan Sql icin
-    idxofClass = [i for i, x in enumerate(list(outputs['instances'].pred_classes)) if x == 0]
-    o = outputs["instances"]
-    classes = o.pred_classes[idxofClass]
-    scores = o.scores[idxofClass]
-    boxes = o.pred_boxes[idxofClass]
-    masks = o.pred_masks[idxofClass]
-    print("idxofClass:", idxofClass)
+    #idxofClass = [i for i, x in enumerate(list(outputs['instances'].pred_classes)) if x == 0]
+    #classes = o.pred_classes[idxofClass]
+    #scores = o.scores[idxofClass]
+    #boxes = o.pred_boxes[idxofClass]
+    #masks = o.pred_masks[idxofClass]
 
-    print("classes : ", classes)
-    print("Classes but only one object: ", o.pred_classes)
-    print("classes lenght", len(classes))
-    print("Scores : ", scores[0])
-    print("boxes", boxes)
-    #Classes
-    print("##########CLASS##########")
-    classss = outputs["instances"].pred_classes.to("cpu").numpy()
-    print ("Classs: ", classss)
-    #Score
-    print("##########Score##########")
-    score = outputs["instances"].scores.to("cpu").numpy()
-    print("Score: : ",score)
-    print("Score only one :", score[0])
-    #print("Calisti mi : ", classes, "Scores: ",scores)
+    #print("classes lenght", len(classes))
+  
 
-    #obj icine atmak
-    #obj.set('pred_classes', classes)
-    #obj.set('scores', scores)
-    #obj.set('pred_boxes', boxes)
-    #obj.set('pred_masks', masks)
+
+    #print("##########Boxes##########")
+    #print("Boxes", boxes)
+    #print("Object 1:",outputs["instances"].pred_boxes[0][0])
+    #print("Object 1, x:",outputs["instances"].pred_boxes[0][0].tensor.cpu().numpy()[0][0])
+    #print("Object 1, y:",outputs["instances"].pred_boxes[0][0].tensor.cpu().numpy()[0][1])
+    #print("Object 1, w:",outputs["instances"].pred_boxes[0][0].tensor.cpu().numpy()[0][2])
+    #print("Object 1, h:",outputs["instances"].pred_boxes[0][0].tensor.cpu().numpy()[0][3])
+
+    #print("##########CLASS##########")
+    #classss = outputs["instances"].pred_classes.to("cpu").numpy()
+    #print ("Classs: ", classss)
+    #print("Class only one", classss[0])
+    #print("classes lenght", len(classes))
     
-    
-   
-
-    #pred_classes
-    #print("pred_classes :",outputs["instances"].pred_classes[0][0].tensor.cpu().numpy()[0][0])
-    #print("Object 1:",outputs["instances"].num_instances[0])
+    #print("##########Score##########")
+    #score = outputs["instances"].scores.to("cpu").numpy()
+    #print("Score: : ",score)
+    #print("Score only one :", score[0])
+    Output_from_instances(o)
     
     plt.figure(figsize=(14,10))
     plt.imshow(v.get_image())
@@ -130,6 +120,43 @@ def on_image(image_path,predictor):
 
 #def on video():
 
+#import mysql.connector
+#mydb = mysql.connector.connect(
+#    host="localhost",
+#    database='detectron',
+#    user="root",
+#    passwd="admin",
+#    )
+#mycursor = mydb.cursor()
+import pandas as pd 
+sqlFormula = "INSERT INTO table_detectron (Class,Coordinates,Confiduence) VALUES(%s, %s,%s)"
+#mycursor.execute("CREATE TABLE table_detectron (Class VARCHAR(50), Coordinates VARCHAR(50),Confiduence VARCHAR(50))")
+
+
+def Output_from_instances(o):
+    data = []
+    classes = o.pred_classes
+    classType = o.pred_classes.to("cpu").numpy()
+    scores = o.scores.to("cpu").numpy()
+    print("###################################")
+    print("Koordinatlar")
+    for i in range(len(classes)):
+        if classType[i] == 0:
+            print("Class {} is cat".format(i))
+
+        class_type = "cat"
+        obj = o.pred_boxes[i][0].tensor.cpu().numpy()[0]
+        print("Object {} is :".format(i),obj)
+        print("Scores {}".format(i),scores[i])
+        #Pandas DataFrame
+        data.append((class_type, #Type
+                     scores[i], #Connfi
+                     obj, #coordinates
+                     )) # time
+        print("###################################")
+    data = pd.DataFrame(data, columns = ['Type','Confiduence','coordinates'])
+    print(data)        
+       
 
 
 
